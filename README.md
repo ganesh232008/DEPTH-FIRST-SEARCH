@@ -103,7 +103,7 @@ G F <BR>
 <hr>
 ['0', '1', '2', '3', '4']
 
-# Programe:
+# Program:
 
 ```
 from collections import deque, defaultdict
