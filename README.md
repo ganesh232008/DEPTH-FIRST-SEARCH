@@ -67,40 +67,6 @@ Now, Queue becomes empty, So, terminate these process of iteration.
 <li>Iterate steps 4 and 5 until all nodes get visited, and there are no more unvisited nodes.</li>
 
 </ol>
-## Program
-
-```
-from collections import deque
-from collections import defaultdict
-
-def bfs(graph, start, visited, path):
-    queue = deque()
-    path.append(start)
-    queue.append(start)
-    visited[start] = True
-    while len(queue) != 0:
-        tmpnode = queue.popleft()
-        for neighbour in graph[tmpnode]:
-            if visited[neighbour] == False:
-                path.append(neighbour)
-                queue.append(neighbour)
-                visited[neighbour] = True
-    return path
-
-graph = defaultdict(list)
-v, e = map(int, input().split())
-for i in range(e):
-    u, v = map(str, input().split())
-    graph[u].append(v)
-    graph[v].append(u)
-
-start = 'A'
-path = []
-visited = defaultdict(bool)
-traversedpath = bfs(graph, start, visited, path)
-print(traversedpath)
-
-```
 
 <hr>
 <h3>Sample Input</h3>
@@ -116,10 +82,11 @@ D E <BR>
 D G <BR>
 G F <BR>
 <hr>
+<h3>Sample Output</h3>
+<hr>
+['A', 'B', 'C', 'F', 'E', 'D', 'G']
 
-## Output:
-<img width="513" height="257" alt="image" src="https://github.com/user-attachments/assets/89eecc1f-52db-4d76-a926-cd67042321ec" />
-
+<hr>
 
 <hr>
 <h3>Sample Input</h3>
@@ -135,14 +102,63 @@ G F <BR>
 <h3>Sample Output</h3>
 <hr>
 ['0', '1', '2', '3', '4']
+
+# Programe:
+
+```
+from collections import deque, defaultdict
+
+def bfs(graph, start, visited, path):
+    queue = deque()
+    visited[start] = True
+    queue.append(start)
+    path.append(start)
+
+    while queue:
+        node = queue.popleft()
+
+        for neighbour in graph[node]:
+            if not visited[neighbour]:
+                visited[neighbour] = True
+                queue.append(neighbour)
+                path.append(neighbour)
+
+    return path
+
+
+graph = defaultdict(list)
+
+v, e = map(int, input("Enter the number of nodes and edges: ").split())
+
+print("\nEnter the edges (Adjacent Nodes):")
+
+for i in range(e):
+    u, w = input(f"Edge {i+1} (u v): ").split()
+    graph[u].append(w)
+    graph[w].append(u)
+
+print("\nAdjacency List:")
+for node in graph:
+    print(node, "->", graph[node])
+
+start = input("\nEnter the start node for BFS: ")
+
+if start not in graph:
+    print("Invalid start node!")
+else:
+    visited = defaultdict(bool)
+    path = []
+
+    traversedpath = bfs(graph, start, visited, path)
+    print("\nBFS Traversal:", " -> ".join(traversedpath))
+    
+
+```
+# Output:
+
+<img width="651" height="787" alt="image" src="https://github.com/user-attachments/assets/e5a0cf67-1892-459b-bac9-c997baf8c655" />
+
 <hr>
 <h3>Result:</h3>
 <hr>
 <p>Thus,a Graph was constructed and implementation of Breadth First Search for the same graph was done successfully.</p>
-
-
-
-
-
-
-
